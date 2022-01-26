@@ -1,0 +1,15 @@
+{% if ride %}
+<ul>
+  <li>Destination: {{ ride.destination_address }}</li>
+  <li>Arrival Time: {{ ride.arrival_time }}</li>
+  <li>Passenger Number: {{ ride.passenger_number }}</li>
+  {% if ride.sharability %}  
+  <li>Share or not: Yes</li>
+  {% else %}
+  <li>Share or not: No</li>
+  {% endif %}
+</ul>
+{% else %}
+<p>Ride doesn't exist.</p>
+{% endif %}
+<a href="{% url 'ride:viewRides'%}">Return to Your Rides</a>
