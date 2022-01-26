@@ -10,6 +10,18 @@ class Ride(models.Model):
     arrival_time = models.DateTimeField('arrival time')
     sharability = models.BooleanField(default = False)
     passenger_number = models.PositiveSmallIntegerField()
+    status = models.PositiveSmallIntegerField()
     def __str__(self):
         return self.destination_address
     #TBD: id starts from 3, wtf?    
+
+
+class Vehicle(models.Model):
+    type = models.CharField(max_length = 100)
+    plate_number = models.CharField(max_length = 10)
+    capacity = models.PositiveSmallIntegerField()
+
+class Driver(models.Model):
+    user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True)
+    vehicle = models.OneToOneField(Vehicle, on_delete = models.CASCADE)
+    lisence = models.CharField(max_length = 100)
