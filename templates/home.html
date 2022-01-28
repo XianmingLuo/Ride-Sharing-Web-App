@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
 
 {% block title %}Home{% endblock %}
@@ -9,13 +8,17 @@
 <p><a href="{% url 'logout' %}">Log Out</a></p>
 <hr>
 <h3>What do you want to do?</h3>
-<a href="{% url 'ride:requestInfo'%}">Request A Ride</a>
+<a href="{% url 'ride:requestInfo' %}">Request A Ride</a>
 <br>
-<a href="{% url 'ride:viewRides'%}">View Rides</a>
+<a href="{% url 'ride:selectRole' %}">View Rides</a>
 <br>
-<a href="{% url 'ride:driverInfo'%}"}>Register as a driver</a>
+<a href="{% url 'ride:driverInfo' %}">Register as a driver</a>
+<br>
+<a href="{% url 'ride:searchRides' %}">Search for rides</a>
 {% else %}
 <p>You are not logged in</p>
-<a href="{% url 'login'%}">Log In</a>
+<a href="{% url 'login' %}">Log In</a>
+<p>Don't have an account?</p>
+<a href="{% url 'signup' %}">Sign Up</a>
 {% endif %}
-{% endblock%}
+{% endblock %}

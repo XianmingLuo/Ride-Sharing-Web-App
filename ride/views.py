@@ -8,20 +8,30 @@ def requestRide(request):
     if request.method == 'POST':
         newRide = Ride.objects.create(
             destination_address = request.POST["destination_address"],
-            arrival_time= request.POST["arrival_time"],
+            arrival_date = request.POST["arrival_date"],
+            arrival_time = request.POST["arrival_time"],
             passenger_number= request.POST["passenger_number"],
             sharability= request.POST["sharability"],
             owner= request.user,
-            status = 0,
         )
         newRide.save()
         return redirect('home')
     else:
         return HttpResponse("The method is not POST!")
-def viewRides(request):
+
+def viewDriverRides(request):
     if request.method == 'GET':
-        rides = Ride.objects.filter(owner_id = request.user.id)
-        return render(request, 'ride/viewRides.html', {'rides': rides})
+        rides = Ride.objects.filter(driver_id = request.user.id)      
+    return render(request, 'ride/viewRides.html', {'rides': rides})
+def viewOwnerRides(request):
+    if request.method == 'GET':
+        rides = Ride.objects.filter(owner_id = request.user.id)      
+    return render(request, 'ride/viewRides.html', {'rides': rides})
+def viewSharerRides(request):
+    if request.method == 'GET':
+        rides = Ride.objects.filter(driver_id = request.user.id)      
+    return render(request, 'ride/viewRides.html', {'rides': rides})
+    
 def viewInfo(request, ride_id):
     ride = get_object_or_404(Ride, pk = ride_id)
     return render(request, 'ride/viewInfo.html', {'ride': ride})
@@ -42,5 +52,16 @@ def driverReg(request):
         )
         newDriver.save()
         return redirect('home')
+
+def searchRides(request):
+    openRides = Ride.objects.filter(is_complete = False).filter(driver__isnull = True)
+    return render(request, 'ride/viewRides.html', {'rides': openRides})
+
+def selectRole(request):
+    return render(request, 'ride/selectRole.html')
+
+
+
+
         
         
