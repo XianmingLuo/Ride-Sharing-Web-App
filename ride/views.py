@@ -54,8 +54,12 @@ def driverReg(request):
         return redirect('home')
 
 def searchRides(request):
+    driver = Driver.objects.filter(user_id = request.user.id)
     openRides = Ride.objects.filter(is_complete = False).filter(driver__isnull = True)
-    return render(request, 'ride/viewRides.html', {'rides': openRides})
+    if bool(driver) == False:
+        return HttpResponse("You are not a driver")
+    else:
+        return render(request, 'ride/viewRides.html', {'rides': openRides})
 
 def selectRole(request):
     return render(request, 'ride/selectRole.html')
