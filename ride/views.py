@@ -19,22 +19,22 @@ def requestRide(request):
     else:
         return HttpResponse("The method is not POST!")
 
-def viewDriverRides(request):
+def viewRides(request, role):
     if request.method == 'GET':
-        rides = Ride.objects.filter(driver_id = request.user.id)      
-    return render(request, 'ride/viewRides.html', {'rides': rides})
-def viewOwnerRides(request):
-    if request.method == 'GET':
-        rides = Ride.objects.filter(owner_id = request.user.id)      
-    return render(request, 'ride/viewRides.html', {'rides': rides})
-def viewSharerRides(request):
-    if request.method == 'GET':
-        rides = Ride.objects.filter(driver_id = request.user.id)      
-    return render(request, 'ride/viewRides.html', {'rides': rides})
+        if role == 'driver':
+            rides = Ride.objects.filter(driver_id = request.user.id)
+        elif role == 'owner':
+            rides = Ride.objects.filter(owner = request.user)
+        elif role == 'sharer':
+            pass
+        else:
+            pass
+            #TBD 404
+        return render(request, 'ride/viewRides.html', {'rides': rides})
     
 def viewInfo(request, ride_id):
     ride = get_object_or_404(Ride, pk = ride_id)
-    return render(request, 'ride/viewInfo.html', {'ride': ride})
+    return render(request, 'ride/viewInfo_driver.html', {'ride': ride})
 def driverInfo(request):
     return render(request, 'ride/driverInfo.html')
 def driverReg(request):
@@ -59,7 +59,15 @@ def searchRides(request):
 
 def selectRole(request):
     return render(request, 'ride/selectRole.html')
-
+def confirmRide(request, ride_id):
+    ride = get_object_or_404(Ride, pk = ride_id)
+    ride.driver = Driver.objects.get(pk = request.user.id)
+    ride.save()
+    print(ride.driver)
+    print(ride)
+    return redirect('ride:searchRides')
+    
+    
 
 
 
