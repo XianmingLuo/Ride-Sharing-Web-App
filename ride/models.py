@@ -33,5 +33,7 @@ class Ride(models.Model):
         return self.destination_address
     #TBD: id starts from 3, wtf?    
 
-
+class ShareRide(models.Model):
+    ride = models.ForeignKey(Ride, on_delete = models.CASCADE)
+    sharer = models.ForeignKey(User, on_delete = models.CASCADE)
 

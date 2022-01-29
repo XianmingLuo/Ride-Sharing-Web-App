@@ -1,0 +1,10 @@
+{% if rides %}
+<ul>
+  {% for ride in rides %}
+  <li><a href="{% url 'ride:matchedInfo' ride.id %}">{{ ride.destination_address}} | {{ride.arrival_time}}</a>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>You have no matched rides.</p>
+{% endif %}

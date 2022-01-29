@@ -1,0 +1,20 @@
+<form action="{% url 'ride:matchRides' %}" method = "post">
+  {% csrf_token %}
+  <label for = "destination_address">Your Destination: </label>
+  <input id = "destination_address" type = "text" name = "destination_address"><br>
+
+  <label for = "arrival_time_start">Your Earliest Arrival Time: </label>
+  <input id = "arrival_date_start" type = "date" name = "arrival_date_start">
+  <input id = "arrival_time_start" type = "time" name = "arrival_time_start"><br>
+
+  <label for = "arrival_time_end">Your Latest Arrival Time: </label>
+  <input id = "arrival_date_end" type = "date" name = "arrival_date_end">
+  <input id = "arrival_time_end" type = "time" name = "arrival_time_end"><br>
+
+  
+  <label for = "passenger_number">How many passengers: </label>
+  <input id = "passenger_number" type = "text" name = "passenger_number"><br>
+
+  
+  <input type = "submit" value="find" >
+  </form>

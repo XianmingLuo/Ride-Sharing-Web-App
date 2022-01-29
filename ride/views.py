@@ -1,9 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Ride, Driver, Vehicle
+from .models import Ride, Driver, Vehicle, ShareRide
 # Create your views here.
 def requestInfo(request):
     return render(request, 'ride/requestInfo.html')
+def shareInfo(request):
+    return render(request, 'ride/shareInfo.html')
 def requestRide(request):
     if request.method == 'POST':
         newRide = Ride.objects.create(
@@ -18,7 +20,11 @@ def requestRide(request):
         return redirect('home')
     else:
         return HttpResponse("The method is not POST!")
-
+def matchRides(request):
+    if request.method == 'POST':
+        print("Hi im trying to join a ride!")
+        rides = Ride.objects.filter(sharability = True).filter(destination_address = request.POST["destination_address"])
+    return render(request, 'ride/matchedRides.html', {'rides': rides})
 def viewRides(request, role):
     if request.method == 'GET':
         if role == 'driver':
@@ -27,6 +33,7 @@ def viewRides(request, role):
             rides = Ride.objects.filter(owner = request.user)
         elif role == 'sharer':
             pass
+            rides = Ride.objects.filter()
         else:
             pass
             #TBD 404
@@ -34,7 +41,7 @@ def viewRides(request, role):
     
 def viewInfo(request, ride_id):
     ride = get_object_or_404(Ride, pk = ride_id)
-    return render(request, 'ride/viewInfo_driver.html', {'ride': ride})
+    return render(request, 'ride/viewInfo_base.html', {'ride': ride})
 def driverInfo(request):
     return render(request, 'ride/driverInfo.html')
 def driverReg(request):
@@ -59,7 +66,7 @@ def searchRides(request):
     if bool(driver) == False:
         return HttpResponse("You are not a driver")
     else:
-        return render(request, 'ride/viewRides.html', {'rides': openRides})
+        return render(request, 'ride/searchRides.html', {'rides': openRides})
 
 def selectRole(request):
     return render(request, 'ride/selectRole.html')
@@ -70,10 +77,15 @@ def confirmRide(request, ride_id):
     print(ride.driver)
     print(ride)
     return redirect('ride:searchRides')
-    
-    
-
-
-
-        
-        
+def joinRide(request, ride_id):
+    ShareRide.objects.create(
+        ride = Ride.objects.get(pk = ride_id),
+        sharer = request.user
+    )
+    return redirect('home')
+def confirmInfo(request, ride_id):
+    ride = get_object_or_404(Ride, pk = ride_id)
+    return render(request, 'ride/viewInfo_driver.html', {'ride': ride})
+def matchedInfo(request, ride_id):
+    ride = get_object_or_404(Ride, pk = ride_id)
+    return render(request, 'ride/viewInfo_sharer.html', {'ride': ride})
