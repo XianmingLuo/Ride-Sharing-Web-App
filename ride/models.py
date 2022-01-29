@@ -24,8 +24,7 @@ class Ride(models.Model):
     driver = models.ForeignKey(Driver, on_delete = models.SET_NULL, null = True)
     destination_address = models.CharField(max_length = 200)
     #TBD: to select date instead of typing
-    arrival_date = models.DateField(null = True)
-    arrival_time = models.TimeField(null = True)
+    arrival_datetime = models.DateTimeField(null = True)
     sharability = models.BooleanField(default = False)
     passenger_number = models.PositiveSmallIntegerField()
     is_complete = models.BooleanField(default = False)

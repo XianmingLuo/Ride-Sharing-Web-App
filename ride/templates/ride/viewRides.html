@@ -1,7 +1,7 @@
 {% if rides %}
 <ul>
   {% for ride in rides %}
-  <li><a href="{% url 'ride:viewInfo' ride.id %}">{{ ride.destination_address}} | {{ride.arrival_time}}</a>
+  <li><a href="{% url 'ride:viewInfo' ride.id %}">{{ ride.destination_address}} | {{ride.arrival_datetime}}</a>
   </li>
   {% endfor %}
 </ul>

@@ -10,8 +10,7 @@ def requestRide(request):
     if request.method == 'POST':
         newRide = Ride.objects.create(
             destination_address = request.POST["destination_address"],
-            arrival_date = request.POST["arrival_date"],
-            arrival_time = request.POST["arrival_time"],
+            arrival_datetime = request.POST["arrival_datetime"],
             passenger_number= request.POST["passenger_number"],
             sharability= request.POST["sharability"],
             owner= request.user,
@@ -23,8 +22,10 @@ def requestRide(request):
 def matchRides(request):
     if request.method == 'POST':
         print("Hi im trying to join a ride!")
-        rides = Ride.objects.filter(sharability = True).filter(destination_address = request.POST["destination_address"])
-    return render(request, 'ride/matchedRides.html', {'rides': rides})
+        sharableRides = Ride.objects.filter(sharability = True).exclude(owner = request.user)
+        destMatchedRides = sharableRides.filter(destination_address = request.POST["destination_address"])
+        timeMatchedRides = destMatchedRides.filter(arrival_datetime__range = (request.POST['arrival_datetime_start'], request.POST['arrival_datetime_end']))
+    return render(request, 'ride/matchedRides.html', {'rides': timeMatchedRides})
 def viewRides(request, role):
     if request.method == 'GET':
         if role == 'driver':
@@ -32,6 +33,7 @@ def viewRides(request, role):
         elif role == 'owner':
             rides = Ride.objects.filter(owner = request.user)
         elif role == 'sharer':
+            rides = Ride.objects.filter()
             pass
             rides = Ride.objects.filter()
         else:
@@ -61,12 +63,15 @@ def driverReg(request):
         return redirect('home')
 
 def searchRides(request):
-    driver = Driver.objects.filter(user_id = request.user.id)
-    openRides = Ride.objects.filter(is_complete = False).filter(driver__isnull = True)
-    if bool(driver) == False:
+    try:
+        driver = Driver.objects.get(user = request.user)
+    except Driver.DoesNotExist:
         return HttpResponse("You are not a driver")
     else:
-        return render(request, 'ride/searchRides.html', {'rides': openRides})
+        vehicle = Vehicle.objects.get(pk = driver.vehicle_id)
+        openRides = Ride.objects.filter(is_complete = False).filter(driver__isnull = True).exclude(owner = request.user)
+        capMatchedRides = openRides.filter(passenger_number__lte = vehicle.capacity)
+        return render(request, 'ride/searchRides.html', {'rides': capMatchedRides})
 
 def selectRole(request):
     return render(request, 'ride/selectRole.html')
@@ -78,10 +83,12 @@ def confirmRide(request, ride_id):
     print(ride)
     return redirect('ride:searchRides')
 def joinRide(request, ride_id):
+    rideToJoin = Ride.objects.get(pk = ride_id)
     ShareRide.objects.create(
-        ride = Ride.objects.get(pk = ride_id),
+        ride = rideToJoin,
         sharer = request.user
     )
+    
     return redirect('home')
 def confirmInfo(request, ride_id):
     ride = get_object_or_404(Ride, pk = ride_id)
