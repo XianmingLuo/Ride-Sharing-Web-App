@@ -7,18 +7,22 @@ class Vehicle(models.Model):
     type = models.CharField(max_length = 100)
     plate_number = models.CharField(max_length = 10)
     capacity = models.PositiveSmallIntegerField()
+    optional = models.CharField(max_length = 200, blank = True)
 
 class Driver(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE, primary_key = True)
     vehicle = models.OneToOneField(Vehicle, on_delete = models.CASCADE)
     lisence = models.CharField(max_length = 100)
+    firstName = models.CharField(max_length = 30)
+    lastName = models.CharField(max_length = 30)
 
 class Ride(models.Model):
-    #STATUS = (
-    #    ('Open', 'Open'),
-    #   ('Confirmed', 'Confirmed'),
-    #   ('Completed', 'Completed'),
-    #)
+    STATUS = (
+        ('OP', 'Open'),
+        ('CF', 'Confirmed'),
+        ('CP', 'Completed'),
+        ('CC', 'Canceled'),
+    )
     #TBD: on_delete is related to one-to-many relationship
     owner = models.ForeignKey(User, on_delete = models.CASCADE)
     driver = models.ForeignKey(Driver, on_delete = models.SET_NULL, null = True)
@@ -27,7 +31,8 @@ class Ride(models.Model):
     arrival_datetime = models.DateTimeField(null = True)
     sharability = models.BooleanField(default = False)
     passenger_number = models.PositiveSmallIntegerField()
-    is_complete = models.BooleanField(default = False)
+    status = models.CharField(max_length = 2, choices = STATUS, default = "OP")
+    optional = models.CharField(max_length = 200, blank = True)
     def __str__(self):
         return self.destination_address
     #TBD: id starts from 3, wtf?    

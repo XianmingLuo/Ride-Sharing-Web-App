@@ -3,6 +3,7 @@
   <li>Destination: {{ ride.destination_address }}</li>
   <li>Arrival Time: {{ ride.arrival_datetime }}</li>
   <li>Passenger Number: {{ ride.passenger_number }}</li>
+  <li>Additional Requirements: {{ ride.optional }}</li>
   {% if ride.sharability %}  
   <li>Share or not: Yes</li>
   {% else %}

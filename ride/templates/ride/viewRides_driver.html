@@ -1,0 +1,8 @@
+{% extends 'ride/viewRides_base.html' %}
+{% block content %}
+{% if ride.status == "CP" %}
+(Completed)
+{% else %}
+<a href="{% url 'ride:completeRide' ride.id %}">Complete this Ride</a>
+{% endif %}
+{% endblock %}

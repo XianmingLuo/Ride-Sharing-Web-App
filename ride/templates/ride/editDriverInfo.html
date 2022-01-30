@@ -1,4 +1,4 @@
-<form action="{% url 'ride:submitDriverEdition' %}">
+<form action="{% url 'ride:submitDriverEdition' %}" method = "post">
     {% csrf_token %}
     <label for = "vehicle_type">Your Vehicle Type: </label>
     <input id = "vehicle_type" type = "text" name = "vehicle_type" value="{{driver.vehicle.type}}"><br>
