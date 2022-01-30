@@ -18,4 +18,9 @@ urlpatterns = [
     path('<int:ride_id>/confirmInfo', views.confirmInfo, name = 'confirmInfo'),
     path('<int:ride_id>/matchedInfo', views.matchedInfo, name = 'matchedInfo'),
     path('<int:ride_id>/joinRide', views.joinRide, name = 'joinRide'),
+    path('editInfo/', views.editInfo, name = 'editInfo'),
+    path('editRides/', views.editRides, name = 'editRides'),
+    path('<int:ride_id>/editSelectedRide/', views.editSelectedRide, name = 'editSelectedRide'),
+    path('editDriverInfo/', views.editDriverInfo, name = 'editDriverInfo'),
+    path('submitEdition/', views.submitDriverEdition, name = 'submitDriverEdition'),
 ]

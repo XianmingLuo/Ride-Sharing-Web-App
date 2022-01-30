@@ -1,0 +1,17 @@
+<form action="{% url 'ride:submitDriverEdition' %}">
+    {% csrf_token %}
+    <label for = "vehicle_type">Your Vehicle Type: </label>
+    <input id = "vehicle_type" type = "text" name = "vehicle_type" value="{{driver.vehicle.type}}"><br>
+  
+    <label for = "plate_number">Your Plate Number: </label>
+    <input id = "plate_number" type = "text" name = "plate_number" value="{{driver.vehicle.plate_number}}"><br>
+  
+    <label for = "vehicle_capacity">Maximum Number of passengers: </label>
+    <input id = "vehicle_capacity" type = "text" name = "vehicle_capacity" value="{{driver.vehicle.capacity}}"><br>
+  
+    <label for = "driver_lisence">Your Driver Lisence Number: </label><br>
+    <input id = "driver_lisence" type = "text" name = "driver_lisence" value="{{driver.lisence}}"><br>
+    
+    <input type = "submit" value="Edit" >
+    </form>
+  

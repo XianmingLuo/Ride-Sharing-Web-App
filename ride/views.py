@@ -6,6 +6,7 @@ def requestInfo(request):
     return render(request, 'ride/requestInfo.html')
 def shareInfo(request):
     return render(request, 'ride/shareInfo.html')
+
 def requestRide(request):
     if request.method == 'POST':
         newRide = Ride.objects.create(
@@ -88,11 +89,47 @@ def joinRide(request, ride_id):
         ride = rideToJoin,
         sharer = request.user
     )
-    
     return redirect('home')
+
 def confirmInfo(request, ride_id):
     ride = get_object_or_404(Ride, pk = ride_id)
     return render(request, 'ride/viewInfo_driver.html', {'ride': ride})
 def matchedInfo(request, ride_id):
     ride = get_object_or_404(Ride, pk = ride_id)
     return render(request, 'ride/viewInfo_sharer.html', {'ride': ride})
+
+def editInfo(request):
+    return render(request, 'ride/editInfo.html')
+def submitDriverEdition(request):
+    try:
+        driver = Driver.objects.get(pk = request.user.id)
+        vehicle = driver.vehicle
+    except Driver.DoesNotExist:
+        return HttpResponse("You have not registered as a driver")
+    else:
+        if request.method == 'POST':
+            driver.lisence = request.POST['driver_lisence']
+            vehicle.type = request.POST['vehicle_type']
+            vehicle.plate_number = request.POST['plate_number']
+            vehicle.capacity = request.POST['vehicle_capacity']
+            vehicle.save()
+            driver.save()
+        return redirect('ride:editInfo')
+
+def editRides(request):
+    rides = Ride.objects.filter(owner = request.user)
+    return render(request, 'ride/editRides.html', {'rides': rides})
+
+def editSelectedRide(request, ride_id):
+    ride = get_object_or_404(Ride, pk = ride_id)
+    return render(request, 'ride/editSelectedRide.html', {'ride': ride})
+
+
+def editDriverInfo(request):
+    if request.method == 'GET':
+        driver = Driver.objects.get(user = request.user)
+        return render(request, 'ride/editDriverInfo.html', {'driver': driver})
+
+        
+
+

@@ -1,0 +1,13 @@
+{% if rides %}
+<ul>
+  {% for ride in rides %}
+  <li><a href="{% url 'ride:editSelectedInfo' ride.id %}">{{ ride.destination_address}} | {{ride.arrival_datetime}}</a>
+    {% if ride.driver != null %}  
+    <input type = "submit" value = "Edit" >
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>You have no rides.</p>
+{% endif %}

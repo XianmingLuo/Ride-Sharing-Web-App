@@ -1,0 +1,19 @@
+<form action="{% url 'ride:editInfo' %}" method = "post">
+    {% csrf_token %}
+    <label for = "destination_address">Your Destination: </label>
+    <input id = "destination_address" type = "text" name = "destination_address" value="{{ride.destination_address}}"><br>
+  
+    <label for = "arrival_time">Your Arrival Time: </label>
+    <input id = "arrival_datetime" type = "datetime-local" name = "arrival_datetime" value="{{ride.arrival_datetime}}"><br>
+    
+    <label for = "passenger_number">How many passengers: </label>
+    <input id = "passenger_number" type = "text" name = "passenger_number" value="{{ride.passenger_number}}"><br>
+  
+    <label for = "sharability">Sharability: </label>
+    <input type = "radio" name = "sharability" value = True>Share!
+    <input type = "radio" name = "sharability" value = False>Nope!<br><br>
+  
+    
+    <input type = "submit" value="Edit" >
+    </form>
+  
