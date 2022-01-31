@@ -1,16 +1,27 @@
 <form action="{% url 'ride:driverReg' %}" method = "post">
   {% csrf_token %}
-  <label for = "vehicle_type">Your Vehicle Type: </label>
-  <input id = "vehicle_type" type = "text" name = "vehicle_type"><br>
+  <label for = "firstName">First Name: </label>
+  <input id = "firstName" type = "text" name = "firstName">
+  <label for = "lastName">Last Name: </label>
+  <input id = "lastName" type = "text" name = "lastName"><br>
+  
+  <label for = "driver_license">Your Driver License Number: </label>
+  <input id = "driver_licence" type = "text" name = "driver_license"><br>
 
+  <label for = "vehicle_type">Your Vehicle Type: </label>
+  <select id = "vehicle_type" name = "vehicle_type">
+    {% for type in vehicle_types %}
+    <option value = {{ type.0 }}>{{ type.1 }}</option>
+    {% endfor %}
+  </select>
+  <br>
   <label for = "plate_number">Your Plate Number: </label>
   <input id = "plate_number" type = "text" name = "plate_number"><br>
 
   <label for = "vehicle_capacity">Maximum Number of passengers: </label>
   <input id = "vehicle_capacity" type = "text" name = "vehicle_capacity"><br>
 
-  <label for = "driver_lisence">Your Driver Lisence Number: </label><br>
-  <input id = "driver_lisence" type = "text" name = "driver_lisence"><br>
-  
+  <label for = "vehicle_specialInfo">Special Vehicle Information(Optional): </label><br>
+  <input id = "vehicle_specialInfo" type = "text" name = "vehicle_specialInfo" value="{{driver.vehicle.specialInfo}}"><br>   
   <input type = "submit" value="Register" >
   </form>

@@ -2,11 +2,11 @@
 <ul>
   {% for ride in rides %}
   <li><a href="{% url 'ride:viewInfo' ride.id %}">{{ ride.destination_address}} | {{ride.arrival_datetime}}</a>
-    {% block content %}
-    {% endblock %}
+  {% block content %}
+  {% endblock %}
   </li>
   {% endfor %}
 </ul>
 {% else %}
-<p>You have no rides.</p>
+<p>No Rides Available</p>
 {% endif %}

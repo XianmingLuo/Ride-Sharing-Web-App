@@ -1,0 +1,12 @@
+{% extends 'ride/viewRides_base.html' %}
+{% block content %}
+{% if ride.status == "CP" %}
+(Completed)
+{% elif ride.status == "CF" %}
+(Confirmed)
+{% elif ride.status == "CC" %}
+(Canceled)
+{% else %}
+<a href="{% url 'ride:cancelShare' ride.id %}">Cancel</a>
+{% endif %}
+{% endblock %}

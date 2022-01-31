@@ -135,3 +135,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # For built-in Authentication use
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+# For email sending use
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp-mail.outlook.com'
+EMAIL_USE_SSL = False
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'ece568_no_reply@outlook.com'
+EMAIL_HOST_PASSWORD = 'dukeece568'
+DEFAULT_FROM_EMAIL = 'ece568_no_reply@outlook.com'
+
+

@@ -1,0 +1,4 @@
+{% extends 'ride/viewRides_base.html' %}
+{% block content %}
+<a href="{% url 'ride:confirmRide' ride.id %}">Confirm this Ride</a>
+{% endblock %}

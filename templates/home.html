@@ -12,13 +12,14 @@
 <br>
 <a href="{% url 'ride:shareInfo' %}">Share A Ride</a>
 <br>
-<a href="{% url 'ride:selectRole' %}">View Rides</a>
+<a href="{% url 'ride:selectRole' %}">View and Edit Rides</a>
 <br>
-<a href="{% url 'ride:driverInfo' %}">Register as a driver</a>
-<br>
-<a href="{% url 'ride:searchRides' %}">Search for rides</a>
-<br>
-<a href="{% url 'ride:editInfo' %}">Edit Information</a>
+{% if user.driver %}
+<a href="{% url 'ride:editDriverInfo' %}">View and Edit Driver Information</a><br>
+<a href="{% url 'ride:searchRides' %}">Search for Open rides as a driver</a><br>
+{% else %}
+<a href="{% url 'ride:driverInfo' %}">Register as a driver</a><br>
+{% endif %}
 {% else %}
 <p>You are not logged in</p>
 <a href="{% url 'login' %}">Log In</a>

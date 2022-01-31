@@ -8,7 +8,14 @@
   
   <label for = "passenger_number">How many passengers: </label>
   <input id = "passenger_number" type = "text" name = "passenger_number"><br>
-
+  <label for = "vehicle_type">Vehicle Type(Optional): </label>
+  <select id = "vehicle_type" name = "vehicle_type">
+    <option value = "" selected >No Specific Requirements</option> 
+    {% for type in vehicle_types %}
+    <option value = {{ type.0 }}>{{ type.1 }}</option>
+    {% endfor %}
+  </select>
+  <br>
   <label for = "optional">Any Additional Requirements(Optional): </label>
   <input id = "optional" type = "text" name = "optional"><br>
   
