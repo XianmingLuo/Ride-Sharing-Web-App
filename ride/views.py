@@ -53,7 +53,7 @@ def viewRides(request, role):
             #TBD 404
         return render(request, template , {'rides': rides})
     
-def viewInfo(request, ride_id):
+def rideDetail(request, ride_id):
     ride = get_object_or_404(Ride, pk = ride_id)
     return render(request, 'ride/viewInfo_base.html', {'ride': ride})
 def driverInfo(request):
@@ -142,8 +142,8 @@ def submitDriverEdition(request):
         return HttpResponse("You have not registered as a driver")
     else:
         if request.method == 'POST':
-            driver.firstName = request.POST["firstName"],
-            driver.lastName = request.POST["lastName"],
+            driver.firstName = request.POST['firstName']
+            driver.lastName = request.POST['lastName']
             driver.license = request.POST['driver_license']
             vehicle.type = request.POST['vehicle_type']
             vehicle.plate_number = request.POST['plate_number']
@@ -153,7 +153,6 @@ def submitDriverEdition(request):
             driver.save()
         return redirect('home')
 def submitRideEdition(request, ride_id):
-    print("Hi")
     editedRide = get_object_or_404(Ride, pk = ride_id)
     if request.method == 'POST':
         editedRide.destination_address = request.POST["destination_address"]

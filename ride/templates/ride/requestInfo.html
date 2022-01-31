@@ -1,3 +1,4 @@
+<h1>Request a Ride</h1>
 <form action="{% url 'ride:requestRide' %}" method = "post">
   {% csrf_token %}
   <label for = "destination_address">Your Destination: </label>

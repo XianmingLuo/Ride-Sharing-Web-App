@@ -1,7 +1,8 @@
-{% if rides %}
+<h1>Select a Ride</h1>
+{% if rides %} 
 <ul>
   {% for ride in rides %}
-  <li><a href="{% url 'ride:viewInfo' ride.id %}">{{ ride.destination_address}} | {{ride.arrival_datetime}}</a>
+  <li><a href="{% url 'ride:rideDetail' ride.id %}">{{ ride.destination_address}} | {{ride.arrival_datetime}}</a>
   {% block content %}
   {% endblock %}
   </li>
@@ -9,4 +10,5 @@
 </ul>
 {% else %}
 <p>No Rides Available</p>
+<a href="{% url 'home' %}">Return to Homepage</a>
 {% endif %}

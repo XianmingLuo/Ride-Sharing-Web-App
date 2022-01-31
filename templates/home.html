@@ -4,22 +4,24 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-<h2>Hi {{ user.username }}!</h2>
+<h1>Hi {{ user.username }}!</h1>
 <p><a href="{% url 'logout' %}">Log Out</a></p>
 <hr>
-<h3>What do you want to do?</h3>
+<h2>What do you want to do?</h2>
+<h3>As a Ride Owner</h3>
 <a href="{% url 'ride:requestInfo' %}">Request A Ride</a>
 <br>
-<a href="{% url 'ride:shareInfo' %}">Share A Ride</a>
-<br>
-<a href="{% url 'ride:selectRole' %}">View and Edit Rides</a>
-<br>
+<h3>As a Ride Sharer</h3>
+<a href="{% url 'ride:shareInfo' %}">Share A Ride</a><br>
+<h3>As a Driver</h3>
 {% if user.driver %}
-<a href="{% url 'ride:editDriverInfo' %}">View and Edit Driver Information</a><br>
-<a href="{% url 'ride:searchRides' %}">Search for Open rides as a driver</a><br>
+<a href="{% url 'ride:searchRides' %}">Search for Rides</a><br>
+<a href="{% url 'ride:editDriverInfo' %}">View and Edit Status</a><br>
 {% else %}
 <a href="{% url 'ride:driverInfo' %}">Register as a driver</a><br>
 {% endif %}
+<h3>View Your Rides</h3>
+<a href="{% url 'ride:selectRole' %}">View and Edit Rides</a><br>
 {% else %}
 <p>You are not logged in</p>
 <a href="{% url 'login' %}">Log In</a>

@@ -1,11 +1,16 @@
+<h1>Ride Detail</h1>
 {% if ride %}
-Ride Information<br>
+<h2>Ride Information</h2>
 <ul>
   <li>Destination: {{ ride.destination_address }}</li>
   <li>Arrival Time: {{ ride.arrival_datetime }}</li>
   <li>Passenger Number: {{ ride.passenger_number }}</li>
-  <li>Vehicle Type(Optional): {{ ride.get_type_display }}</li>
-  <li>Additional Requirements(Optional): {{ ride.optional }}</li>
+  {% if ride.type %}
+  <li>Vehicle Type: {{ ride.get_type_display }}</li>
+  {% endif %}
+  {% if ride.optional %}
+  <li>Additional Requirements: {{ ride.optional }}</li>
+  {% endif %}
   {% if ride.sharability %}  
   <li>Share or not: Yes</li>
   {% else %}
@@ -16,20 +21,23 @@ Ride Information<br>
 <p>Ride doesn't exist.</p>
 {% endif %}
 {% if ride.driver %}
-Driver Information<br>
+<h2>Driver Information</h2>
 <ul>
+  <li>Driver Name: {{ ride.driver.firstName }} {{ ride.driver.lastName }}</li>
   <li>Vehicle Type: {{ ride.driver.vehicle.get_type_display }}</li>
   <li>Plate Number: {{ ride.driver.vehicle.plate_number}}</li>
   <li>Vehicle Capacity: {{ ride.driver.vehicle.capacity}}</li>
+  {% if ride.driver.vehicle.specialInfo %}
   <li>Special Vehicle Info: {{ride.driver.vehicle.specialInfo}}</li>
+  {% endif %}
 </ul>
 {% else %}
 No Driver So Far<br>
 {% endif %}
 {% if ride.shareride_set.all %}
-Sharer Information<br>
+<h2>Sharers Information</h2>
 {% for share in ride.shareride_set.all %}
-Share Party {{ forloop.counter }}<br>
+<h3>Party {{ forloop.counter }}</h3>
 <ul>
   <li>Passenger Number: {{ share.passenger_number }}</li>  
 </ul>
@@ -39,3 +47,4 @@ No Sharer So Far<br>
 {% endif %}
 {% block content %}
 {% endblock%}
+<a href="{% url 'home' %}">Back To Home</a>

@@ -1,3 +1,4 @@
+<h1>Register as a Driver</h1>
 <form action="{% url 'ride:driverReg' %}" method = "post">
   {% csrf_token %}
   <label for = "firstName">First Name: </label>
@@ -21,7 +22,7 @@
   <label for = "vehicle_capacity">Maximum Number of passengers: </label>
   <input id = "vehicle_capacity" type = "text" name = "vehicle_capacity"><br>
 
-  <label for = "vehicle_specialInfo">Special Vehicle Information(Optional): </label><br>
+  <label for = "vehicle_specialInfo">Special Vehicle Information(Optional): </label>
   <input id = "vehicle_specialInfo" type = "text" name = "vehicle_specialInfo" value="{{driver.vehicle.specialInfo}}"><br>   
   <input type = "submit" value="Register" >
   </form>
