@@ -28,6 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'vcm-23974.vm.duke.edu',
     '127.0.0.1',
+    'web',
 ]
 
 
@@ -82,10 +83,10 @@ WSGI_APPLICATION = 'RideSharingService.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'hw1db',
+        'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': 'xl369yl729',
-        'HOST': '127.0.0.1',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
