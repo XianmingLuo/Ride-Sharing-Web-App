@@ -11,7 +11,7 @@ We added functions to edit ride information. But we could not distinguish
 between owner and sharer.
 
 01/30
-Fixed the problem in the previous day, and finished email confirmation for 
+Fixed the problem in the previous day, finished email confirmation for 
 ride owner and sharer. But we did not implement the funciton to validate the
 email address. This can be improved in the future.
 
