@@ -30,9 +30,10 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000',
 ]
 ALLOWED_HOSTS = [
-    'http://*.duke.edu',
+    '*.duke.edu',
     '127.0.0.1',
     'web',
+    'vcm-23974.vm.duke.edu'
 ]
 
 
@@ -87,10 +88,10 @@ WSGI_APPLICATION = 'RideSharingService.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
+        'NAME': 'hw1db',
         'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'db',
+        'PASSWORD': 'xl369yl729',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
