@@ -4,7 +4,7 @@
 This is a Uber-like web application that supports ride requests, sharing, etc.
 
 ## How to deploy it?
-One your machine with ip address <host1_ip>
+On your machine with ip address <host1_ip>
 ```
 git clone https://github.com/XianmingLuo/Ride-Sharing-Web-App.git
 cd Ride-Sharing-Web-App
